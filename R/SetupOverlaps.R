@@ -142,9 +142,11 @@ SetupOverlaps<-function(GIS.data, a.data){
   #remove any rows with an overlapID that occurs only once, as these don't overlap
   counts<-as.matrix(table(o.data$overlap_id))
   to.keep<-as.data.frame(which(counts>1))
-  colnames(to.keep)<-"overlap_id"
-  o.data<-merge(to.keep,o.data)
-  o.data<-data.frame(action_id=o.data[,2],overlap_id=o.data[,1])
+  if(dim(to.keep)[1]>0){ #if there are overlaps
+    colnames(to.keep)<-"overlap_id"
+    o.data<-merge(to.keep,o.data)
+    o.data<-data.frame(action_id=o.data[,2],overlap_id=o.data[,1])
+  }
   
   ########################
   #Datachecks on o.data
