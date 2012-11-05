@@ -65,7 +65,7 @@ NewCalcCosts <- function(act_id, action.vector, raw.overlaps, costs, overlaps, .
       # put active.overlaps back into orginal dim
       active.overlaps<-matrix(activevect,nrow=activedim[1],ncol=activedim[2])
       zero.row<-rowSums(active.overlaps)>0
-      active.overlaps<-active.overlaps[zero.row,]
+      active.overlaps<-matrix(active.overlaps[zero.row,])
       active.row<-active.row[zero.row]
     }
     
