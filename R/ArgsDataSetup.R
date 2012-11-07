@@ -1,5 +1,11 @@
 ## Setting arguments for DataSetup function ##
 
+PriorRun <- function(directory, functions.dir, data, 
+    poly.size = 1, poly.percent = 0.5,
+    strip.projects = TRUE, select.projects = TRUE, project.list = c(14083,14003,13152,13074,2050,2032,2024), projects = 20,
+    select.taxa = FALSE
+    
+
 #initialize workspace
 rm(list=ls())
 library(RODBC)
@@ -21,7 +27,7 @@ select.projects <- TRUE # set to true to limit projects to only those in project
 project.list <- c(14083,14003,13152,13074,2050,2032,2024)
 projects <- 20 # the number of projects prioritised if strip.projects=TRUE (from the order projects are listed in R_benefits)
 select.taxa <- FALSE # set to TRUE to enable selection of one taxa type only for prioritisation
-taxa="Vascular Plant" # if select.taxa is TRUE, then set to taxa text
+taxa <- "Vascular Plant" # if select.taxa is TRUE, then set to taxa text
 set.benefit <- FALSE # set to TRUE to set benefit 
 new.benefit <- 100 # if set.benefit is TRUE then set to 0-100 to change benefit values
 set.success <- FALSE # set to TRUE to set benefit
