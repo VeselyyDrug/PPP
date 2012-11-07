@@ -6,7 +6,7 @@ library(RODBC)
 
 # directories
 directory<-getwd() # directory for all input and output files
-output.dir="D:/PRIORITYDATABASE/PrioritisationII_RUNS/OutputData"
+output.dir <- "D:/PRIORITYDATABASE/PrioritisationII_RUNS/OutputData"
 functions.dir <- path.expand("~/PPP/R") # directory all functions are stored in
 data<-"TESTMASTER_SPECIES_PRESCRIPTIONS_30May_2012.mdb" # name of the database
 
