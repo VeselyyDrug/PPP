@@ -7,7 +7,7 @@ library(RODBC)
 # directories
 directory<-getwd() # directory for all input and output files
 output.dir="D:/PRIORITYDATABASE/PrioritisationII_RUNS/OutputData"
-functions.dir<-"D:/PRIORITYDATABASE/PrioritisationII_RUNS/Functions_v2_CombinedCosts" # directory all functions are stored in
+functions.dir <- path.expand("~/PPP/R")#"D:/PRIORITYDATABASE/PrioritisationII_RUNS/Functions_v2_CombinedCosts" # directory all functions are stored in
 data<-"TESTMASTER_SPECIES_PRESCRIPTIONS_30May_2012.mdb" # name of the database
 
 # polygon thresholds
@@ -45,29 +45,29 @@ summary=TRUE # when set to TRUE the function summary.PPP will be run after Prior
 prefix_text=as.character(Sys.Date()) # if set to Sys.Date() the prefix to each summary file will be today's date
 
 # sourcing setup functions
-source(paste(functions.dir,'/DataSetup.R', sep=""))
-source(paste(functions.dir,"/ConnectToGISdata.R", sep=""))
-source(paste(functions.dir,'/ConnectToActionBenefitWeights.R', sep=""))
-source(paste(functions.dir,'/SetupWeights.R', sep=""))
-source(paste(functions.dir,'/DataChecksIII.R', sep=""))
-source(paste(functions.dir,'/NewSetupCosts.R', sep=""))
-source(paste(functions.dir,'/SetupOverlaps.R', sep=""))
-source(paste(functions.dir,'/SetupOutputMon.R', sep=""))
+source(file.path(functions.dir,'DataSetup.R'))
+source(file.path(functions.dir,"ConnectToGISdata.R"))
+source(file.path(functions.dir,'ConnectToActionBenefitWeights.R'))
+source(file.path(functions.dir,'SetupWeights.R'))
+source(file.path(functions.dir,'DataChecksIII.R'))
+source(file.path(functions.dir,'NewSetupCosts.R'))
+source(file.path(functions.dir,'SetupOverlaps.R'))
+source(file.path(functions.dir,'SetupOutputMon.R'))
 
 # sourcing functions from PPP_v0.5
-source(paste(functions.dir,'/NewCalcCosts.R', sep=""))
-source(paste(functions.dir,'/CalculateWeightsII.R', sep=""))
-source(paste(functions.dir,'/MakeOverlaps.R', sep=""))
-source(paste(functions.dir,'/SetupWeights.R', sep=""))
-source(paste(functions.dir,'/UpdateWeightsII.R', sep=""))
-source(paste(functions.dir,'/plot.PPP.R', sep=""))
-source(paste(functions.dir,'/ppp-internal.R', sep=""))
-source(paste(functions.dir,'/print.PPP.R', sep=""))
-source(paste(functions.dir,'/print.summary.PPP.R', sep=""))
-source(paste(functions.dir,'/summary.PPP.R', sep=""))
+source(file.path(functions.dir,'NewCalcCosts.R'))
+source(file.path(functions.dir,'CalculateWeightsII.R'))
+source(file.path(functions.dir,'MakeOverlaps.R'))
+source(file.path(functions.dir,'SetupWeights.R'))
+source(file.path(functions.dir,'UpdateWeightsII.R'))
+source(file.path(functions.dir,'plot.PPP.R'))
+source(file.path(functions.dir,'ppp-internal.R'))
+source(file.path(functions.dir,'print.PPP.R'))
+source(file.path(functions.dir,'print.summary.PPP.R'))
+source(file.path(functions.dir,'summary.PPP.R'))
 
 # sourcing modified Prioritisation function (based on PPP_v0.5)
-source(paste(functions.dir,'/PrioritisationII.R', sep=""))
+source(file.path(functions.dir,'PrioritisationII.R'))
 
 # calling DataSetup function with arguments set as above
 DataSetup(directory, data, 
