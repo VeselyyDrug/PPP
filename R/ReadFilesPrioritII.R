@@ -9,7 +9,7 @@ b.names <- c("species_id", "taxa_text", "taxa_code", "spp_text",
 b.classes <- c("integer", "character", "integer", "character",
                "character", "integer", "integer", "integer")
 
-b.data <- read.table(file = paste(directory, '/', "BenefitData.csv", sep = ""), header = TRUE, sep = ",",
+b.data <- read.table(file = file.path(directory, "BenefitData.csv"), header = TRUE, sep = ",",
                      col.names = b.names, colClasses = b.classes, quote = "\"", comment.char = "")
 
 # action data
@@ -29,24 +29,25 @@ a.classes <- c("integer", "integer",
                "numeric",
                "character", "integer","integer", "integer")
 
-a.data <- read.table(file = paste(directory, '/', "ActionData.csv", sep = ""), header = TRUE, sep = ",",
+a.data <- read.table(file = file.path(directory, "ActionData.csv"), header = TRUE, sep = ",",
                      col.names = a.names, colClasses = a.classes, quote = "\"", comment.char = "")
 
 # weights data
-w.data <- read.table(file = paste(directory, '/', "WeightsData.csv", sep = ""), header = TRUE, sep = ",",
+w.data <- read.table(file = file.path(directory,"WeightsData.csv"), header = TRUE, sep = ",",
                      quote = "\"", comment.char = "", strip.white = TRUE)
 
 # overlap data
-o.data <- read.table(file = paste(directory, '/', "OverlapData.csv", sep = ""), header = TRUE, sep = ",",
+o.data <- read.table(file = file.path(directory,"OverlapData.csv"), header = TRUE, sep = ",",
                      quote = "\"", comment.char = "", strip.white = TRUE)
 
 # cost period data 
-cost.period1<- as.matrix(read.table(file = paste(directory, '/', "Period1.csv", sep = ""), header = TRUE, sep = ",",
+cost.period1<- as.matrix(read.table(file = file.path(directory, "Period1.csv"), header = TRUE, sep = ",",
                           quote = "\"", comment.char = "", strip.white = TRUE))
 
-cost.period2<- as.matrix(read.table(file = paste(directory, '/', "Period2.csv", sep = ""), header = TRUE, sep = ",",
+cost.period2<- as.matrix(read.table(file = file.path(directory, "Period2.csv"), header = TRUE, sep = ",",
                           quote = "\"", comment.char = "", strip.white = TRUE))
-cost.period3<- as.matrix(read.table(file = paste(directory, '/', "Period3.csv", sep = ""), header = TRUE, sep = ",",
+                          
+cost.period3<- as.matrix(read.table(file = file.path(directory, "Period3.csv"), header = TRUE, sep = ",",
                           quote = "\"", comment.char = "", strip.white = TRUE))
 
 output_PPP<-PrioritisationII(directory, weighting = 1, 

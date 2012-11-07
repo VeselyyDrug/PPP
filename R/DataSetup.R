@@ -157,7 +157,7 @@ DataSetup<-function(directory, data,
   }
   
   orig.costs<-all.costs
-  write.csv(cbind(a.data$action_id,orig.costs), paste(output.dir,"/InitialCombinedCosts.csv",sep=""),row.names=FALSE)
+  write.csv(cbind(a.data$action_id,orig.costs), file.path(output.dir,"InitialCombinedCosts.csv"),row.names=FALSE)
   
   ## PrePrioritisationWorkspace ##
   
