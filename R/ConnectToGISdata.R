@@ -20,7 +20,8 @@ ConnectToGISdata<-function(poly.size, poly.percent, data,...){
   # read in ForOverlaps qry
   for.overlaps<-sqlFetch(dbconn,"R_DataForOverlaps")
   # set ID columns to integers
-  for(n in 1:7){
+  tointeger <- c("ActivityID", "MethodID", "ThreatID", "ManagementActionID", "ManagementSiteID", "SpeciesID")
+  for(n in tointeger){
     for.overlaps[,n]<-as.integer(for.overlaps[,n])
   }
   # read in SRP file
@@ -29,7 +30,7 @@ ConnectToGISdata<-function(poly.size, poly.percent, data,...){
   super.poly<-sqlFetch(dbconn,"R_superregionpolyoutput")
   #Close database connection
   close(dbconn)
-
+  
   cat("Setting up GIS data",'\n')
   
   # are the number of MgmtSiteIDs from R_superregionpolyoutput the same as number of
@@ -43,7 +44,8 @@ ConnectToGISdata<-function(poly.size, poly.percent, data,...){
   for.overlaps<-for.overlaps[with(for.overlaps, !is.na(ManagementSiteID)),]
   
   #Join and create polygon data for use in overlap calculations
-  poly.data<-merge(new.hectares,super.poly,by.x="SpatialID",by.y="SPATIALID")
+  #poly.data<-merge(new.hectares,super.poly,by.x = "SpatialID",by.y="SPATIALID")
+  poly.data<-merge(new.hectares,super.poly,by = "SpatialID")
   colnames(poly.data)[2]<-"NewHA"
   colnames(poly.data)[8]<-"OriginalHA"
   

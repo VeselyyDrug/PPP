@@ -40,22 +40,6 @@ PrioritisationII<-function(directory = getwd(), weighting,
   ########################################################
   overlap_data <- MakeOverlaps(with(a.data, action_id), o.data, overlap.indicator)
   
- 
-  
-  ###############################################################
-  ## Create a matrix of years actions are costed (row per act) ##
-  ###############################################################
-  
-  # not needed as DataSetup function creates cost.period dataframes    
-  # Find column numbers of costs data
-  #     period3_sequence <- which(names(a.data) == "p3_year1"):which(names(a.data) == "p3_year50")
-  #     period2_sequence <- which(names(a.data) == "p2_year1"):which(names(a.data) == "p2_year50")
-  #     period1_sequence <- which(names(a.data) == "p1_year1"):which(names(a.data) == "p1_year50")
-  #     
-  #     cost.period1 <- CleanCosts(as.matrix(a.data[, period1_sequence]), 50)
-  #     cost.period2 <- CleanCosts(as.matrix(a.data[, period2_sequence]), 50)
-  #     cost.period3 <- CleanCosts(as.matrix(a.data[, period3_sequence]), 50)
-  
   cat('Preliminary data cleaning complete.\n')
   cat('##################################\n')
   cat('Starting loop for... \n')
@@ -67,18 +51,9 @@ PrioritisationII<-function(directory = getwd(), weighting,
   # Print the number of actions, unique species, unique genera, unique families, unique orders 
   cat('\t', n_projects, '\tunique actions,\n') 
   cat('\t', n_species, '\tunique species,\n') 
-  cat('\t', length(with(w.data, table(genus))), '\tunique genera present,\n') 
-  cat('\t', length(with(w.data, table(family))), '\tunique families present, \n') 
-  cat('\t', length(with(w.data, table(order))), '\tunique orders present.\n') 
-  
-  #######################################
-  ######## CLEAN THE WORKSPACE ##########
-  #######################################
-  
-  #     rm(a.names, b.names, w.names,
-  #        a.classes, b.classes, w.classes,
-  #        period1_sequence, period2_sequence, period3_sequence, 
-  #        period1_text, period2_text, period3_text)
+#  cat('\t', length(with(w.data, table(genus))), '\tunique genera present,\n') 
+#  cat('\t', length(with(w.data, table(family))), '\tunique families present, \n') 
+#  cat('\t', length(with(w.data, table(order))), '\tunique orders present.\n') 
   
   ################################################################
   ###########################  LOOP ##############################
@@ -98,11 +73,10 @@ PrioritisationII<-function(directory = getwd(), weighting,
   remaining.spp.df$W <- w.data[w_match, "weight_value"]
   
   # Add some extra information for each species, ie sciname, genus, family, order, etc
-  extra <- match(with(a.data, unique(species_id)), with(w.data, species_id))
+  extra <- match(with(a.data, unique(species_id)), with(b.data, species_id))
   
-  
-  remaining.spp.df <- cbind(remaining.spp.df, w.data[extra,c("sciname", "genus", 
-                                                             "family", "order", "Bs", "Bg", "Bf", "Endem.spp", "Endem.gen", "Endem.fam")])
+  remaining.spp.df <- cbind(remaining.spp.df, b.data[extra,c("sciname")])
+  #, "genus", "family", "order", "Bs", "Bg", "Bf", "Endem.spp", "Endem.gen", "Endem.fam")])
   
   # Create the 'removed' list of species (currently empty)
   removed.spp.df <- data.frame(remaining.spp.df[rep(FALSE, NROW(remaining.spp.df)),], 
@@ -111,7 +85,7 @@ PrioritisationII<-function(directory = getwd(), weighting,
   ############################################################################################
   ############################################################################################
   
-  while(generated_firstyear_budget > set_budget){ # & stop.iteration != loop_iteration ){
+  while(generated_firstyear_budget > set_budget){ # & stop.iteration != loop_iteration || no.spp == set.number.spp){
     
     #********************* DELETE SPECIES IF CE=0 *****************
     

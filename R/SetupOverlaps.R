@@ -1,4 +1,4 @@
-SetupOverlaps<-function(GIS.data, a.data){
+SetupOverlaps<-function(GIS.data, a.data, ...){
   
   # This function determines which management actions should share costs.
   # Management actions that should share are given the same ID. This function

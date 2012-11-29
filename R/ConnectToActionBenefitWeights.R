@@ -49,24 +49,35 @@ ConnectToActionBenefitWeights<-function(data,...){
   
   # weights data
   cat('...weights data','\n')
-  w.data<-sqlFetch(dbconn,"R_weights")
-  for(n in c(1,5,6,8,9,11:15)){
-    w.data[,n]<-as.integer(w.data[,n])
-  }
-  for(n in c(2:4,7,10)){
-    w.data[,n]<-as.character(w.data[,n])
-  }
-  w.names <- c("species_id", "species_type", "sciname", "genus", "Bs",
-               "Ts", "family", "Bg", "Tg", "order", "Bf",
-               "Tf", "Endem.spp", "Endem.gen", "Endem.fam")
-  names(w.data)<-w.names
+  if(input.w.data)
+    w.data<-sqlFetch(dbconn,"R_weights")
+    for(n in c(1,5,6,8,9,11:15)){
+        w.data[,n]<-as.integer(w.data[,n])
+    }
+    for(n in c(2:4,7,10)){
+        w.data[,n]<-as.character(w.data[,n])
+    }
+    w.names <- c("species_id", "species_type", "sciname", "genus", "Bs",
+                "Ts", "family", "Bg", "Tg", "order", "Bf",
+                "Tf", "Endem.spp", "Endem.gen", "Endem.fam")
+                names(w.data)<-w.names
+    
+                if(any(is.na(w.data[,2:15]))){
+                    return(stop("Code stopped due to NA values in w.data columns 2:15"))
+                }
   
-  if(any(is.na(w.data[,2:15]))){
-    return(stop("Code stopped due to NA values in w.data columns 2:15"))
+                #Close database connection
+                close(dbconn)
+  }else{
+      w.data <- data.frame(
+      species_id = with(b.data, species_id), 
+      taxa_text = with(b.data, taxa_text), 
+      sciname = with(b.data, sciname), 
+      genus = "aa", spp_in_gen = 1, thr_spp_in_gen = 1, 
+      family = "aa", gen_in_fam = 1, thr_gen_in_fam = 1, 
+      order = "aa", fam_in_ord = 1, thr_fam_in_ord = 1,
+      Endem_spp = 0, Endem_gen = 0, Endem_fam = 0)
   }
-  
-  #Close database connection
-  close(dbconn)
   
   cat('Setting up weights data','\n')
   w.data <- SetupWeights(w.data)
